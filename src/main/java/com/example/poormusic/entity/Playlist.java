@@ -26,6 +26,7 @@ public class Playlist {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-//    private List<Track> trackList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "playlist")
+    private List<Track> tracks = new ArrayList<>();
 
 }

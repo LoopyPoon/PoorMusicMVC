@@ -29,5 +29,7 @@ public class Track {
     @Column(name = "author")
     private String author;
 
-//    private List<Playlist> playlists = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private Playlist playlist;
 }

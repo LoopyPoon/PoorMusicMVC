@@ -6,15 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user-action")
-public class UserAction {
+@Table(name = "action")
+public class Action {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +28,7 @@ public class UserAction {
 
     @Column(name = "description", columnDefinition = "text")
     private String description;
+
+    @ManyToMany(mappedBy = "actions")
+    private List<User> users = new ArrayList<>();
 }
