@@ -20,14 +20,14 @@ public class Track {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "url", nullable = false, unique = true)
-    private String url;
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "author")
     private String author;
+
+    @Column(name = "duration")
+    private double duration;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn

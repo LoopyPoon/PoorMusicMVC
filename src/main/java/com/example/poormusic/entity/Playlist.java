@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,11 +21,11 @@ public class Playlist {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "url", nullable = false, unique = true)
-    private String url;
-
     @Column(name = "title", nullable = false, unique = true)
     private String title;
+
+    @Column(name = "date")
+    private Date date;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "playlist")
     private List<Track> tracks = new ArrayList<>();
