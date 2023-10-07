@@ -44,4 +44,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "action_id", referencedColumnName = "id")}
     )
     private List<Action> actions = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Playlist> playlists = new ArrayList<>();
 }

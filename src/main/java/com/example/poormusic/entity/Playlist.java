@@ -30,7 +30,15 @@ public class Playlist extends BaseEntity {
     @Column(name = "date")
     private Date date;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "playlist")
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "playlist_track",
+            joinColumns = {@JoinColumn(name = "playlist_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")}
+    )
     private List<Track> tracks = new ArrayList<>();
 
 }

@@ -9,38 +9,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "track")
-public class Track {
+@Table(name = "genre")
+public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "artist_track",
-            joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "artist_genre",
+            joinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "artist_id", referencedColumnName = "id")}
     )
     private List<Artist> artists = new ArrayList<>();
 
-    @Column(name = "duration")
-    private double duration;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "genre")
+    private List<Album> albums = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "playlist_track",
-            joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
+    @JoinTable(name = "playlist_genre",
+            joinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "playlist_id", referencedColumnName = "id")}
     )
     private List<Playlist> playlists = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "track_id")
-    private Album album;
 }
