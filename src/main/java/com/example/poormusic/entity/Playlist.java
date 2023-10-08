@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -26,9 +25,6 @@ public class Playlist extends BaseEntity {
 
     @Column(name = "title", nullable = false, unique = true)
     private String title;
-
-    @Column(name = "date")
-    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")

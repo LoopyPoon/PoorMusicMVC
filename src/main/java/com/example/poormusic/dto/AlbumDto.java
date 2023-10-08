@@ -1,7 +1,10 @@
 package com.example.poormusic.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -9,18 +12,19 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlaylistDto extends BaseDto{
+public class AlbumDto extends BaseDto {
 
-    @NotEmpty
     private Long id;
 
     @NotEmpty
     private String title;
 
-    @NotEmpty
-    private UserDto userDto;
+    private List<ArtistDto> artistDtos;
 
     @NotEmpty
+    private int year;
+
     private List<TrackDto> trackDtos;
 
+    private GenreDto genreDto;
 }

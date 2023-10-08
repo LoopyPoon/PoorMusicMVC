@@ -1,17 +1,46 @@
 package com.example.poormusic.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class BaseEntity {
 
-    protected Timestamp createOn;
+    LocalDateTime created;
 
-    protected Timestamp updateOn;
+    LocalDateTime updated;
 
+    @Column(name = "created", updatable = false)
+    public LocalDateTime getCreated() {
+        return created;
+    }
 
+    @Column(name = "updated", insertable = false)
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    @PrePersist
+    public void toCreate() {
+        setCreated(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    public void toUpdate() {
+        setUpdated(LocalDateTime.now());
+    }
 }
 
 
