@@ -33,11 +33,7 @@ public class Track {
     @Column(name = "duration")
     private double duration;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "playlist_track",
-            joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "playlist_id", referencedColumnName = "id")}
-    )
+    @ManyToMany(mappedBy = "tracks")
     private List<Playlist> playlists = new ArrayList<>();
 
     @ManyToOne

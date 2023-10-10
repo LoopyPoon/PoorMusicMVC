@@ -23,24 +23,12 @@ public class Artist {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "artist_album",
-            joinColumns = {@JoinColumn(name = "artist_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "album_id", referencedColumnName = "id")}
-    )
+    @ManyToMany(mappedBy = "artists")
     private List<Album> albums = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "artist_genre",
-            joinColumns = {@JoinColumn(name = "artist_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")}
-    )
+    @ManyToMany(mappedBy = "artists")
     private List<Genre> genres = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "artist_track",
-            joinColumns = {@JoinColumn(name = "artist_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")}
-    )
+    @ManyToMany(mappedBy = "artists")
     private List<Track> tracks = new ArrayList<>();
 }

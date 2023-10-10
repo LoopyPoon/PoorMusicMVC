@@ -32,11 +32,4 @@ public class Genre {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "genre")
     private List<Album> albums = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "playlist_genre",
-            joinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "playlist_id", referencedColumnName = "id")}
-    )
-    private List<Playlist> playlists = new ArrayList<>();
 }
