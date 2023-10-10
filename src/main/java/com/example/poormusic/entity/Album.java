@@ -34,7 +34,7 @@ public class Album {
     private int year;
 
     @ManyToOne
-    @JoinColumn(name = "album_id")
+    @JoinColumn(name = "genre_id")
     private Genre genre;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "album")

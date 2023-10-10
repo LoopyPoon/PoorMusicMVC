@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@EntityListeners(TimeEntityListener.class)
 @Table(name = "playlist")
 public class Playlist extends BaseEntity {
 
@@ -27,7 +26,7 @@ public class Playlist extends BaseEntity {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "playlist_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

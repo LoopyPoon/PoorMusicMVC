@@ -41,6 +41,6 @@ public class Track {
     private List<Playlist> playlists = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "track_id")
+    @JoinColumn(name = "album_id")
     private Album album;
 }
