@@ -19,19 +19,19 @@ public class Image {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "original_file_name")
     private String originalFileName;
 
-    @Column(name = "size")
-    private Long size;
+    @Column(name = "extension")
+    private String extension;
 
-    @Column(name = "content_type")
-    private String contentType;
+    @Column(name = "link")
+    private String downloadLink;
 
-    @Lob
-    private byte[] bytes;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    private Playlist playlist;
 
 }

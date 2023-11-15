@@ -18,7 +18,11 @@ import java.util.Optional;
 public class PlaylistController {
 
     @Autowired
-    private PlaylistRepository playlistRepository;
+    private final PlaylistRepository playlistRepository;
+
+    public PlaylistController(PlaylistRepository playlistRepository) {
+        this.playlistRepository = playlistRepository;
+    }
 
     @GetMapping("/playlists")
     public ModelAndView getAllPlaylists() {
@@ -60,12 +64,14 @@ public class PlaylistController {
         return "redirect:/playlists";
     }
 
+    @Deprecated
     @GetMapping("/playlistsOld")
     public ModelAndView getAllPlaylists2() {
         ModelAndView mav = new ModelAndView("playlists");
         mav.addObject("playlistsOld", playlistRepository.findAll());
         return mav;
     }
+
 
     
 }

@@ -36,4 +36,10 @@ public class Playlist extends BaseEntity {
     )
     private List<Track> tracks = new ArrayList<>();
 
+    @OneToOne(mappedBy = "playlist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Image image;
+
+    public void addImageToProduct(Image image) {
+        image.setPlaylist(this);
+    }
 }

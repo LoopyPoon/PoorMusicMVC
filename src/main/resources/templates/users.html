@@ -37,18 +37,20 @@
   </div>
   <table class="table table-bordered table-hover">
     <thead class="table-dark">
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-    </tr>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${users}">
-      <td th:text="${user.firstName}"></td>
-      <td th:text="${user.lastName}"></td>
-      <td th:text="${user.email}"></td>
-    </tr>
+      <th:block th:each="user : ${users}">
+        <tr>
+          <td th:text="${user.name}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.roles}"></td>
+        </tr>
+      </th:block>
     </tbody>
   </table>
 </div>

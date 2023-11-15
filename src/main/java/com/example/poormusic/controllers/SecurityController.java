@@ -61,10 +61,5 @@ public class SecurityController {
         return "redirect:/register?success";
     }
 
-    @GetMapping("/users")
-    public String users(Model model) {
-        List<UserDto> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
+
 }
