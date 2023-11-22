@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -50,6 +49,13 @@ public class SecurityController {
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "На этот адрес электронной почты уже зарегестрирована учетная запись");
+        }
+
+        existingUser = userService.findByUsername(userDto.getUsername());
+
+        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
+            result.rejectValue("username", null,
+                    "Этот ник уже занят");
         }
 
         if (result.hasErrors()) {

@@ -5,9 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -28,6 +26,9 @@ public class User implements UserDetails {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -37,7 +38,7 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -57,7 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getName();
+        return username;
     }
 
     @Override
@@ -84,10 +85,11 @@ public class User implements UserDetails {
         this.name = name;
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String username) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.username = username;
     }
 
     public void addRole(Role role) {

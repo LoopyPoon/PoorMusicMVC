@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Setter
 @Getter
@@ -26,7 +24,7 @@ public class Role implements GrantedAuthority {
     public String name;
 
     @ManyToMany(mappedBy = "roles")
-    public List<User> users = new ArrayList<>();
+    public Set<User> users = new HashSet<>();
 
     @Override
     public String getAuthority() {

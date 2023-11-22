@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/admin")
+public class AdminController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
-
+    @GetMapping("/users")
+    public String showUsersList(Model model) {
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "users";
+    }
 }
