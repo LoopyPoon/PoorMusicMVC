@@ -99,4 +99,8 @@ public class User implements UserDetails {
     public void removeRole(Role role) {
         this.roles.remove(role);
     }
+
+    public void addPlaylist(Playlist playlist) {
+        this.playlists.add(playlist);
+    }
 }

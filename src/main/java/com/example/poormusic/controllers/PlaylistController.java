@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping("/users")
+//@RequestMapping("/users")
 public class PlaylistController {
 
     @Autowired
@@ -33,18 +33,18 @@ public class PlaylistController {
     }
 
     @GetMapping("/playlists")
-    public ModelAndView getAllPlaylists(@AuthenticationPrincipal UserDetails userDetails) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(auth.getName());
+    public ModelAndView getAllPlaylists() {
         log.info("playlist -> connections");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userRepository.findByUsernameOrEmail(auth.getName(), auth.getName());
         ModelAndView mav = new ModelAndView("playlists");
-        mav.addObject("playlists", playlistRepository.findAll());
-        mav.addObject("user", userDetails);
+        mav.addObject("playlists", playlistRepository.findAllById(user.orElseThrow().getId()));
+        mav.addObject("user", user);
         return mav;
     }
 
     @GetMapping("/addPlaylistForm")
-    public ModelAndView addPlaylistForm(@AuthenticationPrincipal UserDetails userDetails) {
+    public ModelAndView addPlaylistForm() {
         ModelAndView mav = new ModelAndView("add-playlist-form");
         Playlist playlist = new Playlist();
         mav.addObject("playlist", playlist);
@@ -53,6 +53,11 @@ public class PlaylistController {
 
     @PostMapping("/savePlaylist")
     public String savePlaylist(@ModelAttribute Playlist playlist) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userRepository.findByUsernameOrEmail(auth.getName(), auth.getName());
+        user.orElseThrow().addPlaylist(playlist);
+        playlist.addUser(user.get());
+
         playlistRepository.save(playlist);
         return "redirect:/playlists";
     }
