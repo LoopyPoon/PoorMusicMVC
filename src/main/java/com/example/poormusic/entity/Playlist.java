@@ -46,4 +46,5 @@ public class Playlist extends BaseEntity {
     public void addUser(User user) {
         this.user = user;
     }
+
 }

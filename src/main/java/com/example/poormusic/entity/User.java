@@ -103,4 +103,8 @@ public class User implements UserDetails {
     public void addPlaylist(Playlist playlist) {
         this.playlists.add(playlist);
     }
+
+    public void deletePlaylist(Long playlistId) {
+        this. playlists = null;
+    }
 }
