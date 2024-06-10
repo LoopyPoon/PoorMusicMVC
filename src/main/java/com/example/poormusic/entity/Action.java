@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,5 +29,5 @@ public class Action {
     private String description;
 
     @ManyToMany(mappedBy = "actions")
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 }

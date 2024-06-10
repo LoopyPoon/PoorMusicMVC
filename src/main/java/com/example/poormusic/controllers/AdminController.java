@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -25,4 +26,10 @@ public class AdminController {
         model.addAttribute("users", users);
         return "users";
     }
+
+//    @GetMapping("/addTrackForm")
+//    public ModelAndView addTrackForm() {
+//        ModelAndView mav = new ModelAndView("add-track-form");
+//
+//    }
 }

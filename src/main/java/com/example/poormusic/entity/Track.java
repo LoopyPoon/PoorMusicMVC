@@ -3,17 +3,20 @@ package com.example.poormusic.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "track")
-public class Track {
+public class Track extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +31,13 @@ public class Track {
             joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "artist_id", referencedColumnName = "id")}
     )
-    private List<Artist> artists = new ArrayList<>();
+    private Set<Artist> artists;
 
     @Column(name = "duration")
     private double duration;
 
     @ManyToMany(mappedBy = "tracks")
-    private List<Playlist> playlists = new ArrayList<>();
+    private List<Playlist> playlists;
 
     @ManyToOne
     @JoinColumn(name = "album_id")

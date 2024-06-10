@@ -12,8 +12,8 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
-@EqualsAndHashCode
-public class User implements UserDetails {
+@EqualsAndHashCode(callSuper = false)
+public class User extends BaseEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -46,10 +46,10 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "action_id", referencedColumnName = "id")}
     )
-    private List<Action> actions = new ArrayList<>();
+    private List<Action> actions;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private List<Playlist> playlists = new ArrayList<>();
+    private List<Playlist> playlists;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -105,6 +105,6 @@ public class User implements UserDetails {
     }
 
     public void deletePlaylist(Long playlistId) {
-        this. playlists = null;
+        this.playlists = null;
     }
 }

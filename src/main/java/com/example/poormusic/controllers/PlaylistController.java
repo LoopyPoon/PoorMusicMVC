@@ -4,11 +4,15 @@ import com.example.poormusic.entity.Playlist;
 import com.example.poormusic.entity.User;
 import com.example.poormusic.repository.PlaylistRepository;
 import com.example.poormusic.repository.UserRepository;
+import com.example.poormusic.service.PlaylistService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -23,6 +27,8 @@ public class PlaylistController {
     private final PlaylistRepository playlistRepository;
 
     private final UserRepository userRepository;
+
+//    private final PlaylistService playlistService;
 
     public PlaylistController(PlaylistRepository playlistRepository,
                               UserRepository userRepository) {

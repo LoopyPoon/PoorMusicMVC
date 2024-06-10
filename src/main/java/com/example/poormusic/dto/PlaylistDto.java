@@ -1,9 +1,9 @@
 package com.example.poormusic.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -11,16 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 public class PlaylistDto extends BaseDto{
 
-    @NotEmpty
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     private String title;
 
-    @NotEmpty
-    private UserDto userDto;
+    private UserDto user;
 
-    @NotEmpty
-    private List<TrackDto> trackDtos;
+    private Set<TrackDto> tracks;
 
 }

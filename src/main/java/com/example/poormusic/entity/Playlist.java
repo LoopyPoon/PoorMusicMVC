@@ -6,13 +6,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "playlist")
 public class Playlist extends BaseEntity {
@@ -22,7 +21,7 @@ public class Playlist extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title", nullable = false, unique = true)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @ManyToOne
@@ -34,12 +33,12 @@ public class Playlist extends BaseEntity {
             joinColumns = {@JoinColumn(name = "playlist_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")}
     )
-    private List<Track> tracks = new ArrayList<>();
+    private Set<Track> tracks;
 
     @OneToOne(mappedBy = "playlist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Image image;
 
-    public void addImageToProduct(Image image) {
+    public void  addImageToProduct(Image image) {
         image.setPlaylist(this);
     }
 

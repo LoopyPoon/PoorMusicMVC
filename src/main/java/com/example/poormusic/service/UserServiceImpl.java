@@ -75,6 +75,8 @@ public class UserServiceImpl implements UserService{
         userDto.setLastName(str[1]);
         userDto.setEmail(user.getEmail());
         userDto.setUsername(userDto.getUsername());
+
+
         return userDto;
     }
     private Role checkRoleExist() {

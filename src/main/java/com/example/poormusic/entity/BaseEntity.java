@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
     LocalDateTime created;
 

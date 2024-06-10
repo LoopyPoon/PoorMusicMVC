@@ -10,10 +10,10 @@ import java.util.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "role")
-public class Role implements GrantedAuthority {
+public class Role extends BaseEntity implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Role implements GrantedAuthority {
     public String name;
 
     @ManyToMany(mappedBy = "roles")
-    public Set<User> users = new HashSet<>();
+    public Set<User> users;
 
     @Override
     public String getAuthority() {
@@ -37,19 +37,6 @@ public class Role implements GrantedAuthority {
 
     public Role(Long id) {
         this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return Objects.equals(id, role.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     @Override
