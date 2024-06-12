@@ -2,7 +2,6 @@ package com.example.poormusic.mapper;
 
 import com.example.poormusic.dto.RoleDto;
 import com.example.poormusic.entity.Role;
-import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -14,10 +13,10 @@ public interface RoleMapper extends BaseMapper<Role, RoleDto>{
     RoleDto toDto(Role entity);
 
     @Override
-    @InheritConfiguration
+    @Mapping(source = "users", target = "users")
     Role toEntity(RoleDto dto);
 
     @Override
-    @InheritConfiguration
+    @Mapping(source = "users", target = "users")
     void updateModel(RoleDto dto, @MappingTarget Role entity);
 }

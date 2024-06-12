@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 
 @Slf4j
 @Controller
@@ -44,16 +46,14 @@ public class SecurityController {
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model) {
-        User existingUser = userService.findByEmail(userDto.getEmail());
-
-        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+        Optional<User> existingUserByEmail = userService.findByEmail(userDto.getEmail());
+        if (existingUserByEmail.isPresent()) {
             result.rejectValue("email", null,
                     "На этот адрес электронной почты уже зарегестрирована учетная запись");
         }
 
-        existingUser = userService.findByUsername(userDto.getUsername());
-
-        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
+        Optional<User> existingUserByUsername = userService.findByUsername(userDto.getUsername());
+        if (existingUserByUsername.isPresent()) {
             result.rejectValue("username", null,
                     "Этот ник уже занят");
         }
@@ -66,6 +66,4 @@ public class SecurityController {
         userService.saveUser(userDto);
         return "redirect:/register?success";
     }
-
-
 }

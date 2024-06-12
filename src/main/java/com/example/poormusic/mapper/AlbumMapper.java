@@ -2,7 +2,6 @@ package com.example.poormusic.mapper;
 
 import com.example.poormusic.dto.AlbumDto;
 import com.example.poormusic.entity.Album;
-import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -16,10 +15,14 @@ public interface AlbumMapper extends BaseMapper<Album, AlbumDto> {
     AlbumDto toDto(Album entity);
 
     @Override
-    @InheritConfiguration
+    @Mapping(source = "artists", target = "artists")
+    @Mapping(source = "genre", target = "genre")
+    @Mapping(source = "tracks", target = "tracks")
     Album toEntity(AlbumDto dto);
 
     @Override
-    @InheritConfiguration
+    @Mapping(source = "artists", target = "artists")
+    @Mapping(source = "genre", target = "genre")
+    @Mapping(source = "tracks", target = "tracks")
     void updateModel(AlbumDto dto, @MappingTarget Album entity);
 }
