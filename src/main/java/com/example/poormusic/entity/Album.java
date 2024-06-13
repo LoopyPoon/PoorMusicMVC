@@ -24,6 +24,10 @@ public class Album extends BaseEntity {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "artist_album",
             joinColumns = {@JoinColumn(name = "album_id", referencedColumnName = "id")},

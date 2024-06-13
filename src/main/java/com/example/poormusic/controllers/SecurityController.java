@@ -2,7 +2,7 @@ package com.example.poormusic.controllers;
 
 import com.example.poormusic.dto.UserDto;
 import com.example.poormusic.entity.User;
-import com.example.poormusic.service.UserService;
+import com.example.poormusic.service.user_service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

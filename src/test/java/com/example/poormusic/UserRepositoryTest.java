@@ -64,7 +64,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testRemoveRoleFromExistingUser() {
-        User user = userRepository.findById(7L).get();
+        User user = userRepository.findById(11L).get();
         Role role = new Role(5L);
         user.removeRole(role);
     }

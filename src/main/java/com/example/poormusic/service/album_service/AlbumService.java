@@ -1,0 +1,18 @@
+package com.example.poormusic.service.album_service;
+
+import com.example.poormusic.dto.AlbumDto;
+import com.example.poormusic.entity.Album;
+
+import java.util.Optional;
+import java.util.Set;
+
+public interface AlbumService {
+
+    Set<AlbumDto> findAllByUserId(Long userId);
+
+    void save(Album album);
+
+    Optional<AlbumDto> findById(Long albumId);
+
+    void deleteById(Long albumId);
+}

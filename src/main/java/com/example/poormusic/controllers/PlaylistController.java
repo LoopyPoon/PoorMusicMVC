@@ -3,9 +3,8 @@ package com.example.poormusic.controllers;
 import com.example.poormusic.dto.PlaylistDto;
 import com.example.poormusic.entity.Playlist;
 import com.example.poormusic.entity.User;
-import com.example.poormusic.repository.PlaylistRepository;
-import com.example.poormusic.service.PlaylistService;
-import com.example.poormusic.service.UserService;
+import com.example.poormusic.service.playlist_service.PlaylistService;
+import com.example.poormusic.service.user_service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,21 +23,13 @@ import java.util.Set;
 //@RequestMapping("/users")
 public class PlaylistController {
 
-
-    private final PlaylistRepository playlistRepository;
-
-//    private final UserRepository userRepository;
-
     private final PlaylistService playlistService;
-
     private final UserService userService;
 
     public PlaylistController(PlaylistService playlistService,
-                              UserService userService,
-                              PlaylistRepository playlistRepository) {
+                              UserService userService) {
         this.playlistService = playlistService;
         this.userService = userService;
-        this.playlistRepository = playlistRepository;
     }
 
     @GetMapping("/playlists")
@@ -91,7 +82,7 @@ public class PlaylistController {
         Optional<User> user = userService.findByUsernameOrEmail(auth.getName(), auth.getName());
 
         user.orElseThrow().deletePlaylist(playlistId);
-        playlistRepository.deleteById(playlistId);
+        playlistService.deleteById(playlistId);
         return "redirect:/playlists";
     }
 

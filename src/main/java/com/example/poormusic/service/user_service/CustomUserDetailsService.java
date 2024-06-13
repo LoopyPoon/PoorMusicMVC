@@ -1,4 +1,4 @@
-package com.example.poormusic.service;
+package com.example.poormusic.service.user_service;
 
 import com.example.poormusic.entity.User;
 import com.example.poormusic.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.example.poormusic.service;
+package com.example.poormusic.service.playlist_service;
 
 import com.example.poormusic.dto.PlaylistDto;
 import com.example.poormusic.entity.Playlist;
@@ -30,8 +30,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public Set<PlaylistDto> findAllByUserId(Long user_id) {
-        List<Playlist> playlists = playlistRepository.findAllByUserId(user_id);
+    public Set<PlaylistDto> findAllByUserId(Long userId) {
+        List<Playlist> playlists = playlistRepository.findAllByUserId(userId);
         return playlists.stream()
                 .map(playlistMapper::toDto)
                 .collect(Collectors.toSet());
@@ -43,8 +43,13 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public Optional<PlaylistDto> findById(Long playlist_id) {
-        Optional<Playlist> playlist = playlistRepository.findById(playlist_id);
+    public Optional<PlaylistDto> findById(Long playlistId) {
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
         return playlist.map(playlistMapper::toDto);
+    }
+
+    @Override
+    public void deleteById(Long playlistId) {
+        playlistRepository.deleteById(playlistId);
     }
 }

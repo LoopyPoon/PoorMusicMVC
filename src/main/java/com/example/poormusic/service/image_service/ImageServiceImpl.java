@@ -1,4 +1,4 @@
-package com.example.poormusic.service;
+package com.example.poormusic.service.image_service;
 
 import com.example.poormusic.entity.Image;
 import com.example.poormusic.entity.Playlist;

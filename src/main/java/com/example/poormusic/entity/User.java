@@ -49,7 +49,10 @@ public class User extends BaseEntity implements UserDetails {
     private List<Action> actions;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private List<Playlist> playlists;
+    private Set<Playlist> playlists;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Album> albums;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -106,5 +109,9 @@ public class User extends BaseEntity implements UserDetails {
 
     public void deletePlaylist(Long playlistId) {
         this.playlists = null;
+    }
+
+    public void deleteAlbum(Long albumId) {
+        this.albums = null;
     }
 }
