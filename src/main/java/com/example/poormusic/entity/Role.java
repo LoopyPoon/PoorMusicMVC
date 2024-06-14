@@ -10,7 +10,7 @@ import java.util.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "role")
 public class Role extends BaseEntity implements GrantedAuthority {

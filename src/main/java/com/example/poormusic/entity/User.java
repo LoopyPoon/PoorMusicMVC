@@ -12,7 +12,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class User extends BaseEntity implements UserDetails {
 
     @Id

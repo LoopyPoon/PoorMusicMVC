@@ -1,9 +1,11 @@
 package com.example.poormusic.controllers;
 
 import com.example.poormusic.dto.PlaylistDto;
+import com.example.poormusic.dto.TrackDto;
 import com.example.poormusic.entity.Playlist;
 import com.example.poormusic.entity.User;
 import com.example.poormusic.service.playlist_service.PlaylistService;
+import com.example.poormusic.service.track_service.TrackService;
 import com.example.poormusic.service.user_service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -25,11 +27,14 @@ public class PlaylistController {
 
     private final PlaylistService playlistService;
     private final UserService userService;
+    private final TrackService trackService;
 
     public PlaylistController(PlaylistService playlistService,
-                              UserService userService) {
+                              UserService userService,
+                              TrackService trackService) {
         this.playlistService = playlistService;
         this.userService = userService;
+        this.trackService = trackService;
     }
 
     @GetMapping("/playlists")
@@ -66,13 +71,15 @@ public class PlaylistController {
 
     @GetMapping("/showUpdateForm")
     public ModelAndView showUpdateForm(@RequestParam Long playlistId) {
-        ModelAndView mav = new ModelAndView("add-playlist-form");
+        ModelAndView mav = new ModelAndView("show-playlist-form");
         Optional<PlaylistDto> optionalPlaylist = playlistService.findById(playlistId);
         PlaylistDto playlist = new PlaylistDto();
         if (optionalPlaylist.isPresent()) {
             playlist = optionalPlaylist.get();
         }
+        Set<TrackDto> trackDtos = trackService.findAllByPlaylistsId(playlistId);
         mav.addObject("playlist", playlist);
+        mav.addObject("tracks", trackDtos);
         return mav;
     }
 

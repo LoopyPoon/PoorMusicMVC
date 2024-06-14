@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand" th:href="@{/index}">PoorMusic</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +43,23 @@
                 </div>
             </div>
         </section>
+
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/playlists}">Playlists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/albums}">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/tracks}">Tracks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/artists}">Artists</a>
+                </li>
+            </ul>
+        </div>
 
         <div class="album py-5 bg-body-tertiary">
             <div class="container">

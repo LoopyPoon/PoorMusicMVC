@@ -41,17 +41,17 @@ public class AlbumController {
         return mav;
     }
 
-//    @GetMapping("/showUpdateForm")
-//    public ModelAndView showUpdateForm(@RequestParam Long playlistId) {
-//        ModelAndView mav = new ModelAndView("add-playlist-form");
-//        Optional<PlaylistDto> optionalPlaylist = playlistService.findById(playlistId);
-//        PlaylistDto playlist = new PlaylistDto();
-//        if (optionalPlaylist.isPresent()) {
-//            playlist = optionalPlaylist.get();
-//        }
-//        mav.addObject("playlist", playlist);
-//        return mav;
-//    }
+    @GetMapping("/showUpdateAlbumForm")
+    public ModelAndView showUpdateForm(@RequestParam Long albumId) {
+        ModelAndView mav = new ModelAndView("show-album-form");
+        Optional<AlbumDto> albumDtoOptional = albumService.findById(albumId);
+        AlbumDto albumDto = new AlbumDto();
+        if (albumDtoOptional.isPresent()) {
+            albumDto = albumDtoOptional.get();
+        }
+        mav.addObject("album", albumDto);
+        return mav;
+    }
 
     @GetMapping("/deleteAlbum")
     public String deleteAlbum(@RequestParam Long albumId) {
