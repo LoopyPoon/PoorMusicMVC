@@ -10,7 +10,9 @@ import com.example.poormusic.repository.ArtistRepository;
 import com.example.poormusic.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,14 @@ public class TrackServiceImpl implements TrackService {
 
 
     @Override
+    public Set<TrackDto> findAll() {
+        List<Track> tracks = trackRepository.findAll();
+        return tracks.stream()
+                .map(trackMapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public Set<TrackDto> findAllByPlaylistsId(Long playlistId) {
         Set<Track> tracks = trackRepository.findAllByPlaylistsId(playlistId);
         return tracks.stream()
@@ -43,14 +53,20 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
+    @Transactional
     public void saveTrack(Track track) {
         artistRepository.saveAll(track.getArtists());
         albumRepository.save(track.getAlbum());
-        trackRepository.save(track)
+        trackRepository.save(track);
     }
 
     @Override
     public void deleteById(Long trackId) {
         trackRepository.deleteById(trackId);
+    }
+
+    @Override
+    public void addTrackToPlaylist(Long playlistId, Long trackId) {
+
     }
 }

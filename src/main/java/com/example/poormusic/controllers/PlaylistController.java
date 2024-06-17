@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,6 +94,21 @@ public class PlaylistController {
         return "redirect:/playlists";
     }
 
+    @PostMapping("/showUpdateForm")
+    public String addTrackToPlaylist(@RequestParam Long playlistId, @RequestParam Long trackId, Model model) {
+        trackService.addTrackToPlaylist(playlistId, trackId);
+        Optional<PlaylistDto> optionalPlaylist = playlistService.findById(playlistId);
+        PlaylistDto playlist = new PlaylistDto();
+        if (optionalPlaylist.isPresent()) {
+            playlist = optionalPlaylist.get();
+        }
+        Set<TrackDto> trackDtos = trackService.findAllByPlaylistsId(playlistId);
+        model.addAttribute("successMessage", "Track added to playlist successfully");
+        model.addAttribute("tracks", trackDtos);
+        model.addAttribute("playlist", playlist);
+        return "show-playlist-form";
+    }
+
 //    @Deprecated
 //    @GetMapping("/playlistsOld")
 //    public ModelAndView getAllPlaylists2() {
@@ -101,6 +117,4 @@ public class PlaylistController {
 //        return mav;
 //    }
 
-
-    
 }
