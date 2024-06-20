@@ -31,7 +31,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Set<AlbumDto> findAllByUserId(Long userId) {
-        List<Album> albums = albumRepository.findAllByUserId(userId);
+        List<Album> albums = albumRepository.findAllByUsersId(userId);
         return albums.stream()
                 .map(albumMapper::toDto)
                 .collect(Collectors.toSet());

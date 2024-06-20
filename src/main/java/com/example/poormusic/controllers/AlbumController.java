@@ -5,6 +5,7 @@ import com.example.poormusic.entity.User;
 import com.example.poormusic.service.album_service.AlbumService;
 import com.example.poormusic.service.user_service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class AlbumController {
     private final AlbumService albumService;
     private final UserService userService;
 
+    @Autowired
     public AlbumController(AlbumService albumService,
                            UserService userService) {
         this.albumService = albumService;

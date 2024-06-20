@@ -1,10 +1,8 @@
 package com.example.poormusic.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,9 +12,11 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "artist")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Artist extends BaseEntity {
 
     @Id
@@ -24,6 +24,7 @@ public class Artist extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 

@@ -1,19 +1,19 @@
 package com.example.poormusic.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "album")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Album extends BaseEntity {
 
     @Id
@@ -21,12 +21,16 @@ public class Album extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "user_album",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "album_id", referencedColumnName = "id")}
+    )
+    private Set<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "artist_album",
@@ -35,9 +39,11 @@ public class Album extends BaseEntity {
     )
     private Set<Artist> artists;
 
+    @NonNull
     @Column(name = "year", nullable = false)
     private int year;
 
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;

@@ -1,5 +1,6 @@
 package com.example.poormusic.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.*;
 @Entity
 @Table(name = "user")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User extends BaseEntity implements UserDetails {
 
     @Id
@@ -51,7 +53,7 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Playlist> playlists;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @ManyToMany(mappedBy = "users")
     private Set<Album> albums;
 
     @Override

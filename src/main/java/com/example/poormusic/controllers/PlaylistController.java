@@ -8,6 +8,7 @@ import com.example.poormusic.service.playlist_service.PlaylistService;
 import com.example.poormusic.service.track_service.TrackService;
 import com.example.poormusic.service.user_service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class PlaylistController {
     private final UserService userService;
     private final TrackService trackService;
 
+    @Autowired
     public PlaylistController(PlaylistService playlistService,
                               UserService userService,
                               TrackService trackService) {

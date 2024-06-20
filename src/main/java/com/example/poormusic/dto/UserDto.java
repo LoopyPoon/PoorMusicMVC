@@ -1,18 +1,20 @@
 package com.example.poormusic.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+import java.util.Set;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class UserDto extends BaseDto {
 
     private Long id;
 
@@ -31,4 +33,10 @@ public class UserDto {
 
     @NotEmpty(message = "Password should be not empty")
     private String password;
+
+    private Set<RoleDto> roles;
+
+    private Set<PlaylistDto> playlists;
+
+    private Set<AlbumDto> albums;
 }
