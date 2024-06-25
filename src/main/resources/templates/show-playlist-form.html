@@ -37,7 +37,8 @@
     </div>
     <div>
         <form th:action="@{/savePlaylist}" th:object="${playlist}" method="POST">
-            <input type="text" th:field="*{title}" class="form-control col-4 mb-4" placeholder="Enter Title"/>
+            <label for="title">Album Title:</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control col-4 mb-4" placeholder="Enter Title"/>
             <button type="submit" class="btn btn-primary col-2">Save</button>
             <input type="hidden" th:field="*{id}"/>
         </form>

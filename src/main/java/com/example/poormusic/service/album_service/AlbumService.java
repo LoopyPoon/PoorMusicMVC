@@ -1,5 +1,6 @@
 package com.example.poormusic.service.album_service;
 
+import com.example.poormusic.dto.AddAlbumDto;
 import com.example.poormusic.dto.AlbumDto;
 import com.example.poormusic.entity.Album;
 
@@ -15,4 +16,6 @@ public interface AlbumService {
     Optional<AlbumDto> findById(Long albumId);
 
     void deleteById(Long albumId);
+
+    void addNewAlbum(AddAlbumDto album);
 }

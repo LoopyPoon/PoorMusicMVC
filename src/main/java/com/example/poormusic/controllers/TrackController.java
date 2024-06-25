@@ -46,23 +46,6 @@ public class TrackController {
         return mav;
     }
 
-    @GetMapping("/addTrackForm")
-    public ModelAndView addTrackForm() {
-        ModelAndView mav = new ModelAndView("add-track-form");
-        Track track = new Track();
-        mav.addObject("track", track);
-        return mav;
-    }
 
-    @PostMapping("/saveTrack")
-    public String saveTrack(@ModelAttribute Track track) {
-        trackService.saveTrack(track);
-        return "redirect:/tracks";
-    }
 
-    @PostMapping("/addTracks")
-    public ResponseEntity<String> addTrack(@RequestBody @Valid TrackRequest trackRequest) {
-        trackService.addTrack(trackRequest);
-        return ResponseEntity.ok("Track add successfully");
-    }
 }

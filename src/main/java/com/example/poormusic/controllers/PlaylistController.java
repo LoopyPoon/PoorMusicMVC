@@ -48,7 +48,6 @@ public class PlaylistController {
         ModelAndView mav = new ModelAndView("playlists");
         Set<PlaylistDto> playlistList = playlistService.findAllByUserId(user.orElseThrow().getId());
         mav.addObject("playlists", playlistList);
-        mav.addObject("user", user);
         return mav;
     }
 

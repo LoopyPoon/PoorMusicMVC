@@ -12,6 +12,7 @@ import java.util.Set;
 public interface TrackRepository extends JpaRepository<Track, Long> {
     @NotNull
     List<Track> findAll();
-    Set<Track> findAllByPlaylistsId(Long PlaylistId);
+    Set<Track> findAllByPlaylistsId(Long playlistId);
+    Set<Track> findAllByAlbumId(Long albumId);
 
 }

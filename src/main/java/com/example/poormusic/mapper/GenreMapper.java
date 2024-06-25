@@ -9,17 +9,17 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring", uses = {ArtistMapper.class, AlbumMapper.class})
 public interface GenreMapper extends BaseMapper<Genre, GenreDto> {
     @Override
-    @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "albums", target = "albums")
+    @Mapping(source = "artists", target = "artists", ignore = true)
+    @Mapping(source = "albums", target = "albums", ignore = true)
     GenreDto toDto(Genre entity);
 
     @Override
-    @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "albums", target = "albums")
+    @Mapping(source = "artists", target = "artists", ignore = true)
+    @Mapping(source = "albums", target = "albums", ignore = true)
     Genre toEntity(GenreDto dto);
 
     @Override
-    @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "albums", target = "albums")
+    @Mapping(source = "artists", target = "artists", ignore = true)
+    @Mapping(source = "albums", target = "albums", ignore = true)
     void updateModel(GenreDto dto, @MappingTarget Genre entity);
 }

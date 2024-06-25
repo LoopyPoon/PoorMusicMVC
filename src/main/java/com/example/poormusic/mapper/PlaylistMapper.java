@@ -10,17 +10,17 @@ import org.mapstruct.MappingTarget;
 public interface PlaylistMapper extends BaseMapper<Playlist, PlaylistDto> {
 
     @Override
-    @Mapping(source = "user", target = "user")
-    @Mapping(source = "tracks", target = "tracks")
+    @Mapping(source = "user", target = "user", ignore = true)
+    @Mapping(source = "tracks", target = "tracks", ignore = true)
     PlaylistDto toDto(Playlist entity);
 
     @Override
-    @Mapping(source = "user", target = "user")
-    @Mapping(source = "tracks", target = "tracks")
+    @Mapping(source = "user", target = "user", ignore = true)
+    @Mapping(source = "tracks", target = "tracks", ignore = true)
     Playlist toEntity(PlaylistDto dto);
 
     @Override
-    @Mapping(source = "user", target = "user")
-    @Mapping(source = "tracks", target = "tracks")
+    @Mapping(source = "user", target = "user", ignore = true)
+    @Mapping(source = "tracks", target = "tracks", ignore = true)
     void updateModel(PlaylistDto dto, @MappingTarget Playlist entity);
 }

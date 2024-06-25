@@ -60,6 +60,14 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
+    public Set<TrackDto> findAllByAlbumId(Long albumId) {
+        Set<Track> tracks = trackRepository.findAllByAlbumId(albumId);
+        return tracks.stream()
+                .map(trackMapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     @Transactional
     public void saveTrack(Track track) {
         artistRepository.saveAll(track.getArtists());

@@ -9,6 +9,7 @@ import java.util.Set;
 public interface TrackService {
     Set<TrackDto> findAll();
     Set<TrackDto> findAllByPlaylistsId(Long playlistId);
+    Set<TrackDto> findAllByAlbumId(Long albumId);
     void saveTrack(Track track);
     void deleteById(Long trackId);
 

@@ -2,10 +2,7 @@ package com.example.poormusic.entity;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "track")
@@ -25,9 +23,11 @@ public class Track extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Column(name = "title")
     private String title;
 
+    @NonNull
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "artist_track",
             joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
@@ -35,6 +35,7 @@ public class Track extends BaseEntity {
     )
     private Set<Artist> artists;
 
+    @NonNull
     @Column(name = "duration")
     private double duration;
 

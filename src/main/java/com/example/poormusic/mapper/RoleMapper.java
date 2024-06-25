@@ -9,14 +9,14 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface RoleMapper extends BaseMapper<Role, RoleDto>{
     @Override
-    @Mapping(source = "users", target = "users")
+    @Mapping(source = "users", target = "users", ignore = true)
     RoleDto toDto(Role entity);
 
     @Override
-    @Mapping(source = "users", target = "users")
+    @Mapping(source = "users", target = "users", ignore = true)
     Role toEntity(RoleDto dto);
 
     @Override
-    @Mapping(source = "users", target = "users")
+    @Mapping(source = "users", target = "users", ignore = true)
     void updateModel(RoleDto dto, @MappingTarget Role entity);
 }

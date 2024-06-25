@@ -10,20 +10,20 @@ import org.mapstruct.MappingTarget;
 public interface TrackMapper extends BaseMapper<Track, TrackDto> {
 
     @Override
-    @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "playlists", target = "playlists")
-    @Mapping(source = "album", target = "album")
+    @Mapping(source = "artists", target = "artists", ignore = true)
+    @Mapping(source = "playlists", target = "playlists", ignore = true)
+    @Mapping(source = "album", target = "album", ignore = true)
     TrackDto toDto(Track entity);
 
     @Override
-    @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "playlists", target = "playlists")
-    @Mapping(source = "album", target = "album")
+    @Mapping(source = "artists", target = "artists", ignore = true)
+    @Mapping(source = "playlists", target = "playlists", ignore = true)
+    @Mapping(source = "album", target = "album", ignore = true)
     Track toEntity(TrackDto dto);
 
     @Override
-    @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "playlists", target = "playlists")
-    @Mapping(source = "album", target = "album")
+    @Mapping(source = "artists", target = "artists", ignore = true)
+    @Mapping(source = "playlists", target = "playlists", ignore = true)
+    @Mapping(source = "album", target = "album", ignore = true)
     void updateModel(TrackDto dto, @MappingTarget Track entity);
 }

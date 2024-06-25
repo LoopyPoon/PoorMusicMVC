@@ -24,9 +24,9 @@ public class AlbumDto extends BaseDto {
     @NotBlank
     private String title;
 
-    private Set<ArtistDto> artists;
-
     private int year;
+
+    private Set<ArtistDto> artists;
 
     private Set<TrackDto> tracks;
 
