@@ -65,14 +65,14 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/register/**").permitAll()
-                        .requestMatchers("/index").permitAll()
+                        .requestMatchers("/home").permitAll()
                         .requestMatchers("/addTracks").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/index")
+                        .defaultSuccessUrl("/home")
                         .permitAll())
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

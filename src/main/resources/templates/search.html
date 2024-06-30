@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>PoorMusic</title>
+    <th:block th:insert="~{styles :: styles}"></th:block>
+    <th:block th:insert="~{scripts :: scripts}"></th:block>
+</head>
+<body>
+<header>
+    <th:block th:insert="~{navbar :: navbar}"></th:block>
+</header>
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Collection</h1>
+                    <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/playlists}">Playlists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/albums}">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/tracks}">Tracks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/artists}">Artists</a>
+                </li>
+            </ul>
+        </div>
+
+        <p th:text="${#lists.size(trackPage.content)} + ' tracks found'"></p>
+        <ul>
+            <li th:each="track : ${trackPage.content}">
+                <span th:text="${track}">Track Name</span>
+            </li>
+        </ul>
+
+        <div>
+            <a th:if="${trackPage.hasPrevious()}"
+               th:href="@{/search(query=${name}, page=${currentPage - 1}, size=${trackPage.size})}">Previous</a>
+
+            <span th:text="${currentPage + 1}">1</span> / <span th:text="${trackPage.totalPages}">1</span>
+
+            <a th:if="${trackPage.hasNext()}"
+               th:href="@{/search(query=${name}, page=${currentPage + 1}, size=${trackPage.size})}">Next</a>
+        </div>
+    </main>
+
+</body>
+</html>

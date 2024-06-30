@@ -25,10 +25,10 @@ public class SecurityController {
         this.userService = userService;
     }
 
-    @GetMapping("/index")
-    public String home() {
-        return "index";
-    }
+//    @GetMapping("/home")
+//    public String home() {
+//        return "home";
+//    }
 
     @GetMapping("/login")
     public String login() {

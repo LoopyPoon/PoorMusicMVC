@@ -2,6 +2,8 @@ package com.example.poormusic.repository;
 
 import com.example.poormusic.entity.Track;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,5 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
     List<Track> findAll();
     Set<Track> findAllByPlaylistsId(Long playlistId);
     Set<Track> findAllByAlbumId(Long albumId);
-
+    Page<Track> findTracksByTitleContainingIgnoreCase(String name, Pageable pageable);
 }
