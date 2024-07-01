@@ -1,6 +1,6 @@
 package com.example.poormusic.service.album_service;
 
-import com.example.poormusic.dto.AddAlbumDto;
+import com.example.poormusic.dto.create_new_album_dto.AddAlbumDto;
 import com.example.poormusic.dto.AlbumDto;
 import com.example.poormusic.entity.Album;
 

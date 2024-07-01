@@ -1,8 +1,7 @@
 package com.example.poormusic.controllers;
 
-import com.example.poormusic.dto.AlbumDto;
-import com.example.poormusic.dto.ArtistDto;
-import com.example.poormusic.dto.TrackDto;
+import com.example.poormusic.dto.create_new_album_dto.AddTrackDto;
+import com.example.poormusic.dto.search_service_dto.SearchTrackDto;
 import com.example.poormusic.service.search_service.SearchService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -11,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -35,7 +31,7 @@ public class SearchController {
                               @RequestParam(defaultValue = "10") @Min(1) @Max(100) Integer size) {
         ModelAndView mav = new ModelAndView("search");
 
-        Page<TrackDto> trackDtoPage = searchService.searchTrack(query, PageRequest.of(page,size));
+        Page<SearchTrackDto> trackDtoPage = searchService.searchTrack(query, PageRequest.of(page,size));
 
         mav.addObject("trackPage", trackDtoPage);
         mav.addObject("currentPage", page);

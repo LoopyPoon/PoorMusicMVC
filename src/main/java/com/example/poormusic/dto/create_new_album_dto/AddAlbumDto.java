@@ -1,5 +1,6 @@
-package com.example.poormusic.dto;
+package com.example.poormusic.dto.create_new_album_dto;
 
+import com.example.poormusic.dto.BaseDto;
 import lombok.*;
 
 import java.util.List;

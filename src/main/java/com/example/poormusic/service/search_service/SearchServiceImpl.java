@@ -1,7 +1,8 @@
 package com.example.poormusic.service.search_service;
 
-import com.example.poormusic.dto.TrackDto;
+import com.example.poormusic.dto.search_service_dto.SearchTrackDto;
 import com.example.poormusic.entity.Track;
+import com.example.poormusic.mapper.SearchTrackMapper;
 import com.example.poormusic.mapper.TrackMapper;
 import com.example.poormusic.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,19 @@ public class SearchServiceImpl implements SearchService {
 
     private final TrackRepository trackRepository;
     private final TrackMapper trackMapper;
+    private final SearchTrackMapper searchTrackMapper;
 
     @Autowired
     public SearchServiceImpl(TrackRepository trackRepository,
-                             TrackMapper trackMapper) {
+                             TrackMapper trackMapper,
+                             SearchTrackMapper searchTrackMapper) {
         this.trackRepository = trackRepository;
         this.trackMapper = trackMapper;
+        this.searchTrackMapper = searchTrackMapper;
     }
     @Override
-    public Page<TrackDto> searchTrack(String query, Pageable pageable) {
+    public Page<SearchTrackDto> searchTrack(String query, Pageable pageable) {
         Page<Track> tracksByTitleContainingIgnoreCase = trackRepository.findTracksByTitleContainingIgnoreCase(query, pageable);
-        return tracksByTitleContainingIgnoreCase.map(trackMapper::toDto);
+        return tracksByTitleContainingIgnoreCase.map(searchTrackMapper::toDto);
     }
 }

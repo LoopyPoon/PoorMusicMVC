@@ -1,10 +1,7 @@
 package com.example.poormusic.controllers;
 
-import com.example.poormusic.dto.AddAlbumDto;
-import com.example.poormusic.dto.AddTrackDto;
+import com.example.poormusic.dto.create_new_album_dto.AddAlbumDto;
 import com.example.poormusic.dto.TrackRequest;
-import com.example.poormusic.entity.Album;
-import com.example.poormusic.entity.Track;
 import com.example.poormusic.entity.User;
 import com.example.poormusic.service.album_service.AlbumService;
 import com.example.poormusic.service.track_service.TrackService;
