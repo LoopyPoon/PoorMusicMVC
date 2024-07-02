@@ -1,6 +1,7 @@
 package com.example.poormusic.controllers;
 
 import com.example.poormusic.dto.create_new_album_dto.AddTrackDto;
+import com.example.poormusic.dto.search_service_dto.SearchArtistDto;
 import com.example.poormusic.dto.search_service_dto.SearchTrackDto;
 import com.example.poormusic.service.search_service.SearchService;
 import jakarta.validation.constraints.Max;
@@ -13,6 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Controller
@@ -34,7 +39,16 @@ public class SearchController {
         Page<SearchTrackDto> trackDtoPage = searchService.searchTrack(query, PageRequest.of(page,size));
 
         mav.addObject("trackPage", trackDtoPage);
-        mav.addObject("currentPage", page);
+
+        int totalPages = trackDtoPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            mav.addObject("pageNumbers", pageNumbers);
+        }
+
+//        mav.addObject("currentPage", page);
         return mav;
     }
 }
