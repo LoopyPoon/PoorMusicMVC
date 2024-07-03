@@ -1,35 +1,28 @@
-package com.example.poormusic.mapper;
+package com.example.poormusic.mapper.search_mappers;
 
-import com.example.poormusic.dto.create_new_album_dto.AddTrackDto;
+import com.example.poormusic.dto.search_service_dto.SearchAlbumDto;
 import com.example.poormusic.dto.search_service_dto.SearchTrackDto;
-import com.example.poormusic.entity.Artist;
+import com.example.poormusic.entity.Album;
 import com.example.poormusic.entity.Track;
+import com.example.poormusic.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface SearchTrackMapper extends BaseMapper<Track, SearchTrackDto> {
+public interface SearchAlbumMapper extends BaseMapper<Album, SearchAlbumDto> {
 
     @Override
     @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "album", target = "album")
-    SearchTrackDto toDto(Track entity);
+    SearchAlbumDto toDto(Album entity);
 
     @Override
     @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "album", target = "album")
-    Track toEntity(SearchTrackDto dto);
+    Album toEntity(SearchAlbumDto dto);
 
     @Override
     @Mapping(source = "artists", target = "artists")
-    @Mapping(source = "album", target = "album")
-    void updateModel(SearchTrackDto dto, @MappingTarget Track entity);
+    void updateModel(SearchAlbumDto dto, @MappingTarget Album entity);
 
 //    @Named("mapArtists")
 //    default List<String> mapArtists(Set<Artist> artists) {

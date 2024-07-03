@@ -1,6 +1,8 @@
 package com.example.poormusic.dto.search_service_dto;
 
 import com.example.poormusic.dto.BaseDto;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class SearchTrackDto extends BaseDto {
 
     private Long id;

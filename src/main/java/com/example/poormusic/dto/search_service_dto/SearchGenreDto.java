@@ -1,15 +1,14 @@
 package com.example.poormusic.dto.search_service_dto;
 
 import com.example.poormusic.dto.AlbumDto;
+import com.example.poormusic.dto.ArtistDto;
 import com.example.poormusic.dto.BaseDto;
-import com.example.poormusic.dto.GenreDto;
-import com.example.poormusic.dto.TrackDto;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -17,13 +16,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class SearchArtistDto extends BaseDto {
+public class SearchGenreDto extends BaseDto {
 
     private Long id;
 
     @NonNull
     private String title;
 
-    @NonNull
-    private List<SearchGenreDto> genres;
 }
