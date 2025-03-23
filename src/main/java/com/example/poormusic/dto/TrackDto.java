@@ -1,5 +1,6 @@
 package com.example.poormusic.dto;
 
+import com.example.poormusic.dto.playlist.PlaylistDto;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.NotBlank;

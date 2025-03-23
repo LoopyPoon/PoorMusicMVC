@@ -1,5 +1,8 @@
-package com.example.poormusic.dto;
+package com.example.poormusic.dto.playlist;
 
+import com.example.poormusic.dto.BaseDto;
+import com.example.poormusic.dto.TrackDto;
+import com.example.poormusic.dto.user.UserDto;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PlaylistDto extends BaseDto{
+public class PlaylistDto extends BaseDto {
 
     private Long id;
 
