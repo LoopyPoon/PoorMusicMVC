@@ -5,6 +5,7 @@ import com.example.poormusic.dto.search_service_dto.SearchArtistDto;
 import com.example.poormusic.dto.search_service_dto.SearchTrackDto;
 import com.example.poormusic.entity.Album;
 import com.example.poormusic.entity.Artist;
+import com.example.poormusic.entity.Genre;
 import com.example.poormusic.entity.Track;
 import com.example.poormusic.mapper.search_mappers.SearchAlbumMapper;
 import com.example.poormusic.mapper.search_mappers.SearchArtistMapper;
@@ -56,6 +57,12 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public Page<SearchArtistDto> searchArtist(String query, Pageable pageable) {
         Page<Artist> artistsByTitleContainingIgnoreCase = artistRepository.findArtistsByTitleContainingIgnoreCase(query, pageable);
+        for (Artist artist : artistsByTitleContainingIgnoreCase) {
+            System.out.println("Artist: " + artist.getTitle());
+            for (Genre genre : artist.getGenres()) {
+                System.out.println("Genre:" + genre.getTitle());
+            }
+        }
         return artistsByTitleContainingIgnoreCase.map(searchArtistMapper::toDto);
     }
 }

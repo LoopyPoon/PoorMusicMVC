@@ -1,15 +1,18 @@
 package com.example.poormusic.service.user_service;
 
-import com.example.poormusic.dto.UserDto;
+import com.example.poormusic.dto.user.UserDto;
 import com.example.poormusic.entity.Role;
 import com.example.poormusic.entity.User;
-import com.example.poormusic.mapper.UserMapper;
+import com.example.poormusic.exceptions.ResourceNotFoundException;
+import com.example.poormusic.mapper.user.UserMapper;
 import com.example.poormusic.repository.RoleRepository;
 import com.example.poormusic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -58,6 +61,22 @@ public class UserServiceImpl implements UserService{
     @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User getAuthenticatedUser(Authentication authentication) throws AccessDeniedException {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AccessDeniedException("User is not authenticated");
+        }
+
+        String username = authentication.getName();
+
+        return userRepository.findByUsername(username).orElseThrow(() ->new ResourceNotFoundException("Authenticated user not found"));
+    }
+
+    @Override
+    public Optional<User> findUserById(long id) {
+        return userRepository.findById(id);
     }
 
     @Override

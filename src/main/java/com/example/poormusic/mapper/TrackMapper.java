@@ -2,6 +2,7 @@ package com.example.poormusic.mapper;
 
 import com.example.poormusic.dto.TrackDto;
 import com.example.poormusic.entity.Track;
+import com.example.poormusic.mapper.playlist.PlaylistMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

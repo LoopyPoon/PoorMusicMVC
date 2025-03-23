@@ -15,5 +15,5 @@ public interface TrackService {
 
     void addTrackToPlaylist(Long playlistId, Long trackId);
 
-    TrackDto addTrack(TrackRequest trackRequest);
+//    TrackDto addTrack(TrackRequest trackRequest);
 }

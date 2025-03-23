@@ -2,6 +2,7 @@ package com.example.poormusic.mapper;
 
 import com.example.poormusic.dto.AlbumDto;
 import com.example.poormusic.entity.Album;
+import com.example.poormusic.mapper.user.UserMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

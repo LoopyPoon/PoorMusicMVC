@@ -56,11 +56,11 @@ public class AdminController {
         return "redirect:/admin/addAlbumForm";
     }
 
-    @PostMapping("/addTracks")
-    public ResponseEntity<String> addTrack(@RequestBody @Valid TrackRequest trackRequest) {
-        trackService.addTrack(trackRequest);
-        return ResponseEntity.ok("Track add successfully");
-    }
+//    @PostMapping("/addTracks")
+//    public ResponseEntity<String> addTrack(@RequestBody @Valid TrackRequest trackRequest) {
+//        trackService.addTrack(trackRequest);
+//        return ResponseEntity.ok("Track add successfully");
+//    }
 
 //    @GetMapping("/addTrackForm")
 //    public ModelAndView addTrackForm() {

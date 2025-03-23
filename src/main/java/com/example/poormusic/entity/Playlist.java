@@ -37,6 +37,9 @@ public class Playlist extends BaseEntity {
     )
     private Set<Track> tracks;
 
+    @Column(name = "kind")
+    private String kind;
+
     @OneToOne(mappedBy = "playlist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Image image;
 

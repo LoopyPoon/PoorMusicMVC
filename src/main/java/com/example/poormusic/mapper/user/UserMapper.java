@@ -1,7 +1,12 @@
-package com.example.poormusic.mapper;
+package com.example.poormusic.mapper.user;
 
-import com.example.poormusic.dto.UserDto;
+import com.example.poormusic.dto.user.UserDto;
+import com.example.poormusic.dto.user.UserSummaryDto;
 import com.example.poormusic.entity.User;
+import com.example.poormusic.mapper.AlbumMapper;
+import com.example.poormusic.mapper.BaseMapper;
+import com.example.poormusic.mapper.RoleMapper;
+import com.example.poormusic.mapper.playlist.PlaylistMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -26,4 +31,6 @@ public interface UserMapper extends BaseMapper<User, UserDto> {
     @Mapping(source = "playlists", target = "playlists", ignore = true)
     @Mapping(source = "albums", target = "albums", ignore = true)
     void updateModel(UserDto dto, @MappingTarget User entity);
+
+    UserSummaryDto toSummaryDto(User entity);
 }

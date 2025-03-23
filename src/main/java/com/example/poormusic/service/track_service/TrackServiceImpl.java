@@ -1,12 +1,7 @@
 package com.example.poormusic.service.track_service;
 
 import com.example.poormusic.dto.TrackDto;
-import com.example.poormusic.dto.TrackRequest;
-import com.example.poormusic.entity.Album;
-import com.example.poormusic.entity.Artist;
-import com.example.poormusic.entity.Genre;
 import com.example.poormusic.entity.Track;
-import com.example.poormusic.mapper.PlaylistMapper;
 import com.example.poormusic.mapper.TrackMapper;
 import com.example.poormusic.repository.AlbumRepository;
 import com.example.poormusic.repository.ArtistRepository;
@@ -85,30 +80,30 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
-    @Override
-    @Transactional
-    public TrackDto addTrack(TrackRequest trackRequest) {
-        Genre genre = genreRepository.findByTitle(trackRequest.getAlbumGenre())
-                .orElse(new Genre(trackRequest.getAlbumGenre()));
-        genreRepository.save(genre);
-
-        Album album = albumRepository.findByTitle(trackRequest.getAlbumTitle())
-                .orElse(new Album(trackRequest.getAlbumTitle(), trackRequest.getAlbumYear(), genre));
-        albumRepository.save(album);
-
-        Set<Artist> artists = trackRequest.getArtists().stream()
-                .map(artistTitle -> artistRepository.findByTitle(artistTitle)
-                        .orElse(new Artist(artistTitle)))
-                .collect(Collectors.toSet());
-        artistRepository.saveAll(artists);
-
-        Track track = new Track();
-        track.setTitle(trackRequest.getTitle());
-        track.setDuration(trackRequest.getDuration());
-        track.setAlbum(album);
-        track.setArtists(artists);
-        trackRepository.save(track);
-
-        return trackMapper.toDto(track);
-    }
+//    @Override
+//    @Transactional
+//    public TrackDto addTrack(TrackRequest trackRequest) {
+//        Genre genre = genreRepository.findByTitle(trackRequest.getAlbumGenre())
+//                .orElse(new Genre(trackRequest.getAlbumGenre()));
+//        genreRepository.save(genre);
+//
+//        Album album = albumRepository.findByTitle(trackRequest.getAlbumTitle())
+//                .orElse(new Album(trackRequest.getAlbumTitle(), trackRequest.getAlbumYear(), genre));
+//        albumRepository.save(album);
+//
+//        Set<Artist> artists = trackRequest.getArtists().stream()
+//                .map(artistTitle -> artistRepository.findByTitle(artistTitle)
+//                        .orElse(new Artist(artistTitle)))
+//                .collect(Collectors.toSet());
+//        artistRepository.saveAll(artists);
+//
+//        Track track = new Track();
+//        track.setTitle(trackRequest.getTitle());
+//        track.setDuration(trackRequest.getDuration());
+//        track.setAlbum(album);
+//        track.setArtists(artists);
+//        trackRepository.save(track);
+//
+//        return trackMapper.toDto(track);
+//    }
 }

@@ -73,10 +73,27 @@ public class AlbumServiceImpl implements AlbumService {
         Genre genre = genreRepository.findByTitle(albumDto.getGenre())
                 .orElseGet(() -> genreRepository.save(new Genre(albumDto.getGenre())));
 
+//        Set<Artist> artists = albumDto.getArtists().stream()
+//                .map(artistTitle -> artistRepository.findByTitle(artistTitle)
+//                        .orElseGet(() -> artistRepository.save(new Artist(artistTitle))))
+//                .collect(Collectors.toSet());
+
         Set<Artist> artists = albumDto.getArtists().stream()
                 .map(artistTitle -> artistRepository.findByTitle(artistTitle)
-                        .orElseGet(() -> artistRepository.save(new Artist(artistTitle))))
+                        .orElseGet(() -> {
+                            Artist newArtist = new Artist(artistTitle);
+                            newArtist.getGenres().add(genre);
+                            return artistRepository.save(newArtist); // Сохраняем артиста с жанром
+                        }))
                 .collect(Collectors.toSet());
+
+        // Если у существующих артистов жанр еще не добавлен, добавляем его
+        artists.forEach(artist -> {
+            if (!artist.getGenres().contains(genre)) {
+                artist.getGenres().add(genre);
+                artistRepository.save(artist);
+            }
+        });
 
         Album album = new Album();
         album.setTitle(albumDto.getTitle());
@@ -85,11 +102,30 @@ public class AlbumServiceImpl implements AlbumService {
         album.setArtists(artists);
         albumRepository.save(album);
 
+//        for (AddTrackDto addTrackDto : albumDto.getTracks()) {
+//            Set<Artist> trackArtists = addTrackDto.getArtists().stream()
+//                    .map(artistTitle -> artistRepository.findByTitle(artistTitle)
+//                            .orElseGet(() -> artistRepository.save(new Artist(artistTitle))))
+//                    .collect(Collectors.toSet());
+
         for (AddTrackDto addTrackDto : albumDto.getTracks()) {
             Set<Artist> trackArtists = addTrackDto.getArtists().stream()
                     .map(artistTitle -> artistRepository.findByTitle(artistTitle)
-                            .orElseGet(() -> artistRepository.save(new Artist(artistTitle))))
+                            .orElseGet(() -> {
+                                Artist newArtist = new Artist(artistTitle);
+                                artistRepository.save(newArtist); // Сначала сохраняем артиста
+                                newArtist.getGenres().add(genre);
+                                return artistRepository.save(newArtist); // Сохраняем артиста с жанром
+                            }))
                     .collect(Collectors.toSet());
+
+            // Если у существующих артистов жанр еще не добавлен, добавляем его
+            trackArtists.forEach(artist -> {
+                if (!artist.getGenres().contains(genre)) {
+                    artist.getGenres().add(genre);
+                    artistRepository.save(artist);
+                }
+            });
 
             Track track = new Track();
             track.setTitle(addTrackDto.getTitle());

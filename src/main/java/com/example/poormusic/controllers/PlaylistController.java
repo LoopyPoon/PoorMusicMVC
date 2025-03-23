@@ -1,30 +1,35 @@
 package com.example.poormusic.controllers;
 
-import com.example.poormusic.dto.PlaylistDto;
+import com.example.poormusic.dto.playlist.PlaylistCreateRequest;
+import com.example.poormusic.dto.playlist.PlaylistDto;
 import com.example.poormusic.dto.TrackDto;
+import com.example.poormusic.dto.playlist.PlaylistSummaryDto;
 import com.example.poormusic.entity.Playlist;
 import com.example.poormusic.entity.User;
 import com.example.poormusic.service.playlist_service.PlaylistService;
 import com.example.poormusic.service.track_service.TrackService;
 import com.example.poormusic.service.user_service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
-@Controller
-//@RequestMapping("/users")
+@RestController
+@RequestMapping("/users/{userId}/playlists")
 public class PlaylistController {
 
     private final PlaylistService playlistService;
@@ -40,16 +45,89 @@ public class PlaylistController {
         this.trackService = trackService;
     }
 
-    @GetMapping("/playlists")
-    public ModelAndView getAllPlaylists() {
-        log.info("playlist -> connections");
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> user = userService.findByUsernameOrEmail(auth.getName(), auth.getName());
-        ModelAndView mav = new ModelAndView("playlists");
-        Set<PlaylistDto> playlistList = playlistService.findAllByUserId(user.orElseThrow().getId());
-        mav.addObject("playlists", playlistList);
-        return mav;
+    // Получаем JSON со всеми плейлистами пользователя
+    @Operation(summary = "Get a list of playlists for a user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of playlists found"),
+            @ApiResponse(responseCode = "204", description = "No content, No playlists available"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @GetMapping("/list")
+    public ResponseEntity<Set<PlaylistSummaryDto>> getPlaylists(@PathVariable Long userId, Authentication authentication) {
+        log.info("Fetching playlists for user {}", userId);
+
+//        Optional<User> user = userService.findByUsernameOrEmail(authentication.getName(), authentication.getName());
+        Optional<User> user = userService.findUserById(userId);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Set<PlaylistSummaryDto> playlistDtos = playlistService.findSummaryByUserId(user.get().getId());
+
+        if (playlistDtos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.ok(playlistDtos);
     }
+
+    // Получаем JSON с плейлистом пользователя
+    @Operation(summary = "Get a user playlist")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Playlist found"),
+            @ApiResponse(responseCode = "404", description = "User or playlist not found"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
+    @GetMapping("/{playlistId}")
+    public ResponseEntity<PlaylistSummaryDto> getPlaylist(
+            @PathVariable Long userId,
+            @PathVariable Long playlistId,
+            Authentication authentication) {
+        log.info("Fetching playlist with id {} for user {}", playlistId, userId);
+
+        Optional<User> user = userService.findUserById(userId);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
+        }
+
+        Optional<PlaylistSummaryDto> playlist = playlistService.findSummaryPlaylistById(userId, playlistId, authentication);
+
+        return playlist.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Playlist not found
+    }
+
+    @Operation(summary = "Create a new playlist")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Playlist created"),
+            @ApiResponse(responseCode = "400", description = "Invalid request"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
+    @PostMapping("/create")
+    public ResponseEntity<PlaylistDto> createPlaylist(@PathVariable Long userId,
+                                                      @Valid @RequestBody PlaylistCreateRequest request,
+                                                      Authentication authentication) throws AccessDeniedException {
+
+        log.info("User is creating a new playlist {}", userId);
+
+        PlaylistDto playlistDto = playlistService.createPlaylist(userId, request, authentication);
+        return ResponseEntity.status(HttpStatus.CREATED).body(playlistDto);
+    }
+
+
+    // Получаем Thymeleaf шаблон с плейлистами пользователя
+//    @GetMapping("/playlists")
+//    public ModelAndView getAllPlaylists() {
+//        log.info("playlist -> connections");
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Optional<User> user = userService.findByUsernameOrEmail(auth.getName(), auth.getName());
+//        ModelAndView mav = new ModelAndView("playlists");
+//        Set<PlaylistDto> playlistList = playlistService.findAllByUserId(user.orElseThrow().getId());
+//        mav.addObject("playlists", playlistList);
+//        return mav;
+//    }
 
     @GetMapping("/addPlaylistForm")
     public ModelAndView addPlaylistForm() {
